@@ -1,0 +1,18 @@
+﻿<Properties>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Release" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="ClassLibrary1/VRC_CT_EventHandler.cs">
+    <Files>
+      <File FileName="ClassLibrary1/VRC_CT_EventHandler.cs" Line="20" Column="18" />
+      <File FileName="ClassLibrary1/VRC_CT_CustomEventCollector.cs" Line="39" Column="6" />
+      <File FileName="ClassLibrary1/VRC_CT_CustomEvent.cs" Line="15" Column="4" />
+      <File FileName="ClassLibrary1/VRC_CT_ScoreboardEvent.cs" Line="22" Column="60" />
+      <File FileName="ClassLibrary1/VRC_CT_ScoreboardManager.cs" Line="138" Column="47" />
+      <File FileName="ClassLibrary1/VRC_CT_Scoreboard.cs" Line="21" Column="2" />
+      <File FileName="ClassLibrary1/VRC_CT_TaggedObjectTriggerEnterEventTrigger.cs" Line="49" Column="28" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>
