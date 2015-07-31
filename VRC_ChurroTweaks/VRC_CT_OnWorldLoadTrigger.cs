@@ -11,13 +11,18 @@ namespace VRC_ChurroTweaks
 	public class VRC_CT_OnWorldLoadTrigger : MonoBehaviour
 	{
 	    public string EventToLoad;
-	    public float delay = 1;
+	    public float delay = 0;
 	    private VRC_EventHandler handler;
 	    private bool shouldUpdate = true;
 
 	    void Start()
 	    {
 	        handler = gameObject.GetComponent<VRC_EventHandler>();
+            if (delay == 0)
+            {
+                shouldUpdate = false;
+                handler.TriggerEvent(EventToLoad, VRC_EventHandler.VrcBroadcastType.Always);
+            }
 	    }
 
 	    void Update()
