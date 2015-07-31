@@ -53,7 +53,7 @@ namespace VRC_ChurroTweaks
 	    {
 			VRC_CT_ObjectTags tags = col.gameObject.GetComponent<VRC_CT_ObjectTags>();
 
-	        if (tags != null && tags.hasTag(TagToTriggerEvent))
+	        if ((tags != null && tags.hasTag(TagToTriggerEvent)) || TagToTriggerEvent == "")
 	        {
 				if (ChurroHandler != null)
 				{
@@ -73,7 +73,7 @@ namespace VRC_ChurroTweaks
 	    {
 			VRC_CT_ObjectTags tags = col.GetComponent<VRC_CT_ObjectTags>();
 			
-			if (tags != null && tags.hasTag(TagToTriggerEvent))
+			if ((tags != null && tags.hasTag(TagToTriggerEvent)) || TagToTriggerEvent == "")
 	        {
 				if (ChurroHandler != null)
 				{
