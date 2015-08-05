@@ -1,0 +1,358 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>VRC_ChurroTweaks</name>
+    </assembly>
+    <members>
+        <member name="T:VRC_ChurroTweaks.VRC_CT_CustomEventSpawn">
+             <summary>
+             An abstract class that can be placed on GameObjects to allow CustomEvent usage.
+             </summary>
+            
+        </member>
+        <member name="F:VRC_ChurroTweaks.VRC_CT_CustomEventSpawn.EventTypeName">
+             <summary>
+             EventTypeName is a unique identifier for the event as supplied by the content creator. This is
+             used by VRC_CT_EventHandler to determine which custom event to use
+             </summary>
+            
+        </member>
+        <member name="M:VRC_ChurroTweaks.VRC_CT_CustomEventSpawn.Create(VRCSDK2.VRC_EventHandler.VrcEvent)">
+             <summary>
+             An abstract method that returns the specific VRC_CT_CustomEvent for the spawn class. For instance
+             a VRC_CT_ScoreboardEventSpawn returns a VRC_CT_ScoreboardEvent. Note: overriding classes need to give
+             the VRC_CT_CustomEvent the passed in VrcEvent through SetEvent();
+             </summary>
+            
+        </member>
+        <member name="M:VRC_ChurroTweaks.VRC_CT_CustomEventSpawn.RequiresEventHandlerObject">
+             <summary>
+             If you need access to the GameObject that has the EventHandler override this and return true
+             </summary>
+            
+        </member>
+        <member name="M:VRC_ChurroTweaks.VRC_CT_CustomEventSpawn.GetHashCode">
+             <summary>
+             HashCode is the EventTypeName's HashCode so that it acts as a unique identifier.
+             </summary>
+            
+        </member>
+        <member name="T:VRC_ChurroTweaks.VRC_CT_CustomEvent">
+             <summary>
+             The actual CustomEvent created by a VRC_CT_CustomEventSpawn. These are given their Event through the
+             virtual method SetEvent(VrcEvent e) on creation. To add functionality to an Event, override TriggerEvent().
+             </summary>
+            
+        </member>
+        <member name="M:VRC_ChurroTweaks.VRC_CT_CustomEvent.SetEventHandlerGameObject(UnityEngine.GameObject)">
+             <summary>
+             A virtual method that is called when the GameObject holding the EventHandler for this Event is given to the
+             CustomEvent
+             </summary>
+            
+        </member>
+        <member name="T:VRC_ChurroTweaks.VRC_CT_EventHandler">
+             <summary>
+             This class allows for the implementation of VRC_CT_CustomEvent scripts. Any VRC_CT_CustomEventSpawn scripts
+             added to a GameObject holding a VRC_CT_EventHandler or an ancestor of said object that has a VRC_CT_CustomEventCollector
+             will all that type of custom event to be used. When there is a CT_EventHandler on an object, add all of your Events
+             to the EventInstructions list. To indicate that an Event is to be a custom event format the ParameterString as so:
+             -EventTypeName:[Normal ParameterString], where EventTypeName is customizeable from the VRC_CT_CustomEventSpawn for that
+             event. Duplicate event type names default to the first CustomEventSpawner on the GameObject with the CT_EventHandler.
+             Only ten different EventNames can be used that have custom events under them per CT_EventHandler.
+             </summary>
+            
+        </member>
+        <member name="T:VRC_ChurroTweaks.VRC_CT_ExternalTextView">
+             <summary>
+             Class to handler loading in outside text documents.
+             This also includes a build in display mode.
+             </summary>
+            
+        </member>
+        <member name="F:VRC_ChurroTweaks.VRC_CT_ExternalTextView.txtURL">
+             <summary>
+             Location on the web of the .txt document
+             </summary>
+            
+        </member>
+        <member name="F:VRC_ChurroTweaks.VRC_CT_ExternalTextView.LinesToDisplay">
+             <summary>
+             The number of lines to display at one time
+             </summary>
+            
+        </member>
+        <member name="F:VRC_ChurroTweaks.VRC_CT_ExternalTextView.TextArea">
+             <summary>
+             The display for the text
+             </summary>
+            
+        </member>
+        <member name="F:VRC_ChurroTweaks.VRC_CT_ExternalTextView.Text">
+             <summary>
+             The words of the .txt document separated out into groups of LinesToDisplay
+             </summary>
+            
+        </member>
+        <member name="T:VRC_ChurroTweaks.VRC_CT_ObjectTeleportEventSpawn">
+             <summary>
+             This class will create a VRC_CT_ObjectTeleportEvent. These events use...
+             -- <value> ParameterString </value> the tag indication where an object can be teleported to --
+             -- <value> ParameterObject </value> the object to teleport to a location --
+             This event moves the ParameterObject to either its parent or first child that has the tag given by its
+             ParameterString
+             </summary>
+            
+        </member>
+        <member name="T:VRC_ChurroTweaks.VRC_CT_OnWorldLoadTrigger">
+             <summary>
+             This class will call and event after a certain time has elapsed after it loaded.
+             </summary>
+            
+        </member>
+        <member name="T:VRC_ChurroTweaks.VRC_CT_RemoteEventTriggerEventSpawn">
+             <summary>
+             This class creates VRC_CT_RemoteEventTriggerEvents. These events will trigger an event on the EventHandler on its
+             ParameterObject. This object need not be a child of the GameObject which the Event is called from. These events use...
+             -- <value> ParameterString </value> : The EventName to call --
+             -- <value> ParameterBoolOp </value> : If True, the EventHandler used can change, If False the EventHandler used cannot
+             change --
+             -- <value> ParameterObject </value> : The GameObject with the EventHandler to trigger events on --
+             </summary>
+            
+        </member>
+        <member name="T:VRC_ChurroTweaks.VRC_CT_Scoreboard">
+             <summary>
+             This class holds a TextMesh and and a ScoreboardValue Name.
+             When a scoreboard value changes, the TextMesh will be updated with a string representation of the value
+             
+             The method UpdateValue(string valueName, string valueDisplay) is virtual and can be overriden for custom displays
+             </summary>
+            
+        </member>
+        <member name="T:VRC_ChurroTweaks.VRC_CT_ScoreboardComparatorEventSpawn">
+             <summary>
+             This class will create VRC_CT_ScoreboardComparatorEvents.
+             These events use
+             -- <value> ParameterObject </value>. This is the object with the VRC_CT_ScoreboardManager. If null the GameObject
+             with the event will be used instead
+             -- <value> ParameterString </value>. This should be formatted as a ternary expression in general. You can leave
+             out the else case, but generally it follows [ScoreboardValueName] [Integer Conditionals]
+             [ScoreboardValueName] ? [TrueCaseEventName] : [FalseCaseEventName]
+             -- Full list of formattings is given...
+             
+             key:
+             only one value may be an Integer Value, the other must be a ScoreboardValue --
+             (Integer Conditionals) = (Combination of greater than, less than, equal to and not[!]) --
+             (EventName1) is triggered if the operation returns true --
+             (EventName2) is triggered if the operation returns false --
+             
+             --
+             
+             (ScoreboardValueName or Integer Value) (space here) (Integer Conditionals) (ScoreboardValueName or Integer Value)
+             (space here) (EventName1)
+             
+             -- or --
+             
+             (ScoreboardValueName or Integer Value) (space here) (Integer Conditionals) (ScoreboardValueName or Integer Value)
+             (space here) ("?") (space here) (EventName1) 
+             [optionally you can add either {(space here) (EventName2)} or {(space here) (":") (space here) (EventName2)}]
+             
+             -- or --
+             
+             (ScoreboardValueName or Integer Value) (space here) (Integer Conditionals) (ScoreboardValueName or Integer Value)
+             (space here) (":") (space here) (EventName2)
+             
+             </summary>
+            
+        </member>
+        <member name="F:VRC_ChurroTweaks.VRC_CT_ScoreboardComparatorEventSpawn.UseScoreboardHandler">
+             <summary>
+             If you want the Scoreboard's EventHandler to recieve Comparator Event triggers then set this to true,
+             setting it to false will use the EventHandler that the ComaratorEvent is on.
+             </summary>
+            
+        </member>
+        <member name="T:VRC_ChurroTweaks.VRC_CT_ScoreboardEventSpawn">
+             <summary>
+             This class will create VRC_CT_ScoreboardEvents. These events use 
+             -- <value> ParameterObject </value> = a GameObject that has a VRC_CT_ScoreboardManager script. This will be used
+             for finding a VRC_CT_ScoreboardValue with name [ValueName]. If not given will use the GameObject that the
+             EventHandler script is on--
+             -- <value> ParameterString </value> = "change:[ValueName]" or "set:[ValueName]" or "start" or "end"
+             or "reset:[ValueName]" --
+             -- <value> ParameterFloat </value> = the amount to "change" or "set" [ValueName] by or to --
+             </summary>
+            
+        </member>
+        <member name="T:VRC_ChurroTweaks.VRC_CT_ScoreboardManager">
+             <summary>
+             A class that will keep track of different VRC_CT_ScoreboardValue scripts. 
+             This includes adjusting thier values (adding or removing scores, ticking timers)
+             and updating VRC_CT_Scoreboard scripts text values.
+             
+             When a game ending value is reached on one of the ScoreboardValues this class
+             will call the "GameEnded" event on the event handler attached to the object, as well
+             as "GameStarted" when initial game setup is done after starting.
+             </summary>
+            
+        </member>
+        <member name="F:VRC_ChurroTweaks.VRC_CT_ScoreboardManager.Scoreboards">
+             <summary>
+             A list of GameObjects that have VRC_CT_Scoreboard scripts on them.
+             These scripts will be added to a list to be updated when the value
+             attached to them changes.
+             </summary>
+            
+        </member>
+        <member name="M:VRC_ChurroTweaks.VRC_CT_ScoreboardManager.ChangeValue(System.String,System.Single)">
+             <summary>
+             Add or subtract the VRC_CT_ScoreboardValue named "valueName" by "deltaValue"
+             </summary>
+            
+        </member>
+        <member name="M:VRC_ChurroTweaks.VRC_CT_ScoreboardManager.SetValue(System.String,System.Single)">
+             <summary>
+             Set the VRC_CT_ScoreboardValue named "valueName" to "newValue"
+             </summary>
+            
+        </member>
+        <member name="M:VRC_ChurroTweaks.VRC_CT_ScoreboardManager.ResetValue(System.String)">
+             <summary>
+             Reset the VRC_CT_ScoreboardValue named "valueName"
+             </summary>
+            
+        </member>
+        <member name="M:VRC_ChurroTweaks.VRC_CT_ScoreboardManager.GetValue(System.String)">
+             <summary>
+             Get the VRC_CT_ScoreboardValue named "ValueName"
+             </summary>
+            
+        </member>
+        <member name="M:VRC_ChurroTweaks.VRC_CT_ScoreboardManager.EndGame">
+             <summary>
+             Triggers "GameEnded" on the attached VRC_EventHandler
+             </summary>
+            
+        </member>
+        <member name="M:VRC_ChurroTweaks.VRC_CT_ScoreboardManager.StartGame">
+             <summary>
+             If the game is currently ended, reset all values to their starting values, begin timers
+             and allow value changes
+             </summary>
+            
+        </member>
+        <member name="T:VRC_ChurroTweaks.VRC_CT_ScoreboardValue">
+             <summary>
+             A class that contains a value and helper functions used by ScoreboardManagers.
+             This class should be added to GameObjects that have a VRC_CT_ScoreboardManager.
+             This thing has a lot of options, but you shouldn't be wanting for functionality.
+             (I'll get to custom render support later)
+             </summary>
+            
+        </member>
+        <member name="F:VRC_ChurroTweaks.VRC_CT_ScoreboardValue.ValueName">
+             <summary>
+             Unique identifier for the scoreboard manager to use
+             </summary>
+            
+        </member>
+        <member name="F:VRC_ChurroTweaks.VRC_CT_ScoreboardValue.Type">
+             <summary>
+             SCORE is for values that increase in value to reach a limit
+             STOCK is for values that decrease in value to reach a limit
+             COUNTUP_TIMER is for values that increase in value to reach a limit and will increase with time passing      
+             COUNTDOWN_TIMER is for values that decrease in value to reach a limit and will decreae with time passing
+             </summary>
+            
+        </member>
+        <member name="F:VRC_ChurroTweaks.VRC_CT_ScoreboardValue.IsLimited">
+             <summary>
+             When this ScoreboardValue reaches a certain value(Limit), will an event be called
+             </summary>
+            
+        </member>
+        <member name="F:VRC_ChurroTweaks.VRC_CT_ScoreboardValue.OnLimitReachedShouldEndGame">
+             <summary>
+             When this value hits it's limit should EndGame() be called on its ScoreboardManager
+             </summary>
+            
+        </member>
+        <member name="F:VRC_ChurroTweaks.VRC_CT_ScoreboardValue.IsHardLimit">
+             <summary>
+             If true, once hitting its limit this value will not change until it is reset
+             </summary>
+            
+        </member>
+        <member name="F:VRC_ChurroTweaks.VRC_CT_ScoreboardValue.OnSoftLimitLostEvent">
+             <summary>
+             If IsHardLimit == false and the ScoreboardValue falls below its limit, this event will be called
+             </summary>
+            
+        </member>
+        <member name="F:VRC_ChurroTweaks.VRC_CT_ScoreboardValue.ShowLimit">
+             <summary>
+             When formatting the string representation show "CurrentValue / Limit"
+             </summary>
+            
+        </member>
+        <member name="F:VRC_ChurroTweaks.VRC_CT_ScoreboardValue.CanExceedLimit">
+             <summary>
+             Can soft limits go past their limit
+             </summary>
+            
+        </member>
+        <member name="M:VRC_ChurroTweaks.VRC_CT_ScoreboardValue.FormatValue">
+             <summary>
+             Return a string representation of the value
+             </summary>
+            
+        </member>
+        <member name="M:VRC_ChurroTweaks.VRC_CT_ScoreboardValue.SetValueForced(System.Int32)">
+             <summary>
+             This function allows you to set a ScoreboardValue's CurrentValue without checking to see if it can go there or
+             if it should fire events.
+             </summary>
+            
+        </member>
+        <member name="T:VRC_ChurroTweaks.VRC_CT_TaggedObjectTriggerEnterEventTrigger">
+             <summary>
+             This class will call events when entities with a VRC_CT_ObjectTags script enter it.
+             The entity's ObjectTags must have the tag TagToTriggerEvent for the event to fire.
+             If TagToTriggerEvent is empty, then any object will trigger both the enter and exit events.
+             
+             The EventTypesToUpdate list contains the string identifier for custom events that will 
+             recieve the entering GameObject as their object parameter when the object enters the trigger.
+             
+             <example>
+             i.e. EnterEventTrigger == "DoStuffs" and EventTypesToUpdate.Contains("coolEvent").
+             If when calling the "DoStuffs" event the program finds a custom event under that name of type
+             "coolEvent" that event will have its ParameterObject replaced with the trigger object before
+             being called.
+             </example>
+             </summary>
+            
+        </member>
+        <member name="F:VRC_ChurroTweaks.VRC_CT_TaggedObjectTriggerEnterEventTrigger.EventTypesToUpdate">
+             <summary>
+             A list of CustomEvent names used when determining if an event should have
+             its ParameterObject changed.
+             </summary>
+            
+        </member>
+        <member name="T:VRC_ChurroTweaks.VRC_CT_ObjectTags">
+             <summary>
+             A script that contains a list of tags that can be added to, removed from or checked if contains a tag.
+             This is useful because these tags are independent of project settings and multiple tags can be added to
+             one object.
+             </summary>
+            
+        </member>
+        <member name="T:VRC_ChurroTweaks.VRC_CT_CustomEventCollector">
+             <summary>
+             A script that collects all VRC_CT_CustomEventSpawns on it and passes it to all of its decendents.
+             </summary>
+            
+        </member>
+    </members>
+</doc>

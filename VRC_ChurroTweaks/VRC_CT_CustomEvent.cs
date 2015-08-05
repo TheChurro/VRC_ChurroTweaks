@@ -82,6 +82,7 @@ namespace VRC_ChurroTweaks
 		public virtual void SetEvent(VRC_EventHandler.VrcEvent EventContents)
 		{
 			this.EventContents = EventContents;
+            this.EventContents.ParameterBool = VRC_EventHandler.BooleanOp(EventContents.ParameterBoolOp, false);
 	    }
 
 		public override int GetHashCode()

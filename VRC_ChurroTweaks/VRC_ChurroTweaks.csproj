@@ -50,6 +50,7 @@
     <Compile Include="VRC_CT_CustomEvent.cs" />
     <Compile Include="VRC_CT_EventHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="VRC_CT_ExternalTextView.cs" />
     <Compile Include="VRC_CT_ObjectTeleportEvent.cs" />
     <Compile Include="VRC_CT_OnWorldLoadTrigger.cs" />
     <Compile Include="VRC_CT_RemoteEventTriggerEvent.cs" />

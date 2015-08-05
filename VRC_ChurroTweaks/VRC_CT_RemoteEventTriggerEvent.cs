@@ -32,7 +32,6 @@ namespace VRC_ChurroTweaks
 
         public override void SetEvent(VRC_EventHandler.VrcEvent EventContents)
         {
-            EventContents.ParameterBool = VRC_EventHandler.BooleanOp(EventContents.ParameterBoolOp, true);
             base.SetEvent(EventContents);
 
             if (!EventContents.ParameterBool)
