@@ -24,7 +24,7 @@ namespace VRC_ChurroTweaks
          * The number of lines to display at one time
          * </summary>
          **/
-        public int LinesToDisplay = 10;
+        public int LinesToDisplay;
 
         /**
          * <summary>
@@ -70,6 +70,8 @@ namespace VRC_ChurroTweaks
                 yield return null;
             }
 
+            print(textDocument.text);
+
             SplitDocument();
         }
 
@@ -84,14 +86,17 @@ namespace VRC_ChurroTweaks
                 StringBuilder textPart = new StringBuilder();
                 while (curIndex < split.Length)
                 {
-                    for (int i = 0; i < 10 && i + curIndex < split.Length; i++)
+                    for (int i = 0; i < LinesToDisplay && i + curIndex < split.Length; i++)
                     {
-                        textPart.Append(split[curIndex + i]);
+                        textPart.Append(split[curIndex + i] + System.Environment.NewLine);
                     }
-                    Text[curPart] = textPart.ToString() + "\n";
+                    Text[curPart] = textPart.ToString();
                     textPart = new StringBuilder();
+                    print(Text[curPart]);
 
-                    curIndex += 10;
+                    curPart++;
+
+                    curIndex += LinesToDisplay;
                 }
             }
             else
@@ -111,11 +116,12 @@ namespace VRC_ChurroTweaks
             else
             {
                 StringBuilder text = new StringBuilder();
-                for (int i = 0; i < 10 && i + currentTextGroup < Text.Length; i++)
+                for (int i = 0; i < LinesToDisplay && i + currentTextGroup < Text.Length; i++)
                 {
-                    text.Append(Text[i + currentTextGroup] + "\n");
+                    text.Append(Text[i + currentTextGroup] + System.Environment.NewLine);
                 }
                 TextArea.text = text.ToString();
+                print(Text.ToString());
             }
         }
 
@@ -157,7 +163,7 @@ namespace VRC_ChurroTweaks
 
     public class VRC_CT_PageTurnEventSpawn : VRC_CT_CustomEventSpawn
     {
-        public override VRC_CT_CustomEvent Create(VRC_EventHandler.VrcEvent e)
+        public override VRC_CT_CustomEvent Create(CT_Event e)
         {
             VRC_CT_PageTurnEvent customEvent = new VRC_CT_PageTurnEvent();
             customEvent.SetEvent(e);
@@ -169,10 +175,10 @@ namespace VRC_ChurroTweaks
     {
         private VRC_CT_ExternalTextView view;
 
-        public override void SetEvent(VRC_EventHandler.VrcEvent EventContents)
+        public override void SetEvent(CT_Event EventContents)
         {
             base.SetEvent(EventContents);
-            view = EventContents.ParameterObject.GetComponent<VRC_CT_ExternalTextView>();
+            view = EventContents.ParameterObject0.GetComponent<VRC_CT_ExternalTextView>();
         }
 
         public override void TriggerEvent()

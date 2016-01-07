@@ -231,7 +231,7 @@ namespace VRC_ChurroTweaks
             {
                 if (v.Type == VRC_CT_ScoreboardValueTypes.COUNTDOWN_TIMER || v.Type == VRC_CT_ScoreboardValueTypes.COUNTUP_TIMER)
                 {
-                    byte[] strBytes = GetBytes(v.name);
+                    byte[] strBytes = GetBytes(v.ValueName);
                     byte[] numString = System.BitConverter.GetBytes(strBytes.Length);
                     byte[] valueBytes = System.BitConverter.GetBytes(v.GetValue());
                     bytes.AddRange(numString);
@@ -239,8 +239,6 @@ namespace VRC_ChurroTweaks
                     bytes.AddRange(valueBytes);
                 }
             }
-
-            print("Has got bytes: " + bytes.Count);
 
             return bytes.ToArray();
         }
@@ -252,22 +250,33 @@ namespace VRC_ChurroTweaks
             return bytes;
         }
 
+        public string GetString(byte[] bytes, int startIndex, int numBytes)
+        {
+            string output = "";
+
+            for (int i = 0; i < numBytes; i += 2 )
+            {
+                char nextChar = System.BitConverter.ToChar(bytes, startIndex + i);
+                output += nextChar;
+            }
+            return output;
+        }
+
         public override void SetBytes(byte[] stream)
         {
             int index = 0;
-            print("Has Set Bytes");
             while (index < stream.Length)
             {
                 int numBytesForString = System.BitConverter.ToInt32(stream, index);
                 index += 4;
-                string valueName = System.BitConverter.ToString(stream, index, numBytesForString);
+                string valueName = GetString(stream, index, numBytesForString);
                 index += numBytesForString;
                 int currentValue = System.BitConverter.ToInt32(stream, index);
                 index += 4;
 
                 foreach (VRC_CT_ScoreboardValue v in Values)
                 {
-                    if (v.ValueName == valueName)
+                    if (v.ValueName.Equals(valueName))
                     {
                         v.SetValueForced(currentValue);
                     }

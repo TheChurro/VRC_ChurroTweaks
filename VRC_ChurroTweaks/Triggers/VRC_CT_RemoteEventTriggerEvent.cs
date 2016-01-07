@@ -18,7 +18,7 @@ namespace VRC_ChurroTweaks
      **/
     public class VRC_CT_RemoteEventTriggerEventSpawn : VRC_CT_CustomEventSpawn
     {
-        public override VRC_CT_CustomEvent Create(VRCSDK2.VRC_EventHandler.VrcEvent e)
+        public override VRC_CT_CustomEvent Create(CT_Event e)
         {
             VRC_CT_RemoteEventTriggerEvent customEvent = new VRC_CT_RemoteEventTriggerEvent();
             customEvent.SetEvent(e);
@@ -30,13 +30,13 @@ namespace VRC_ChurroTweaks
     {
         private VRC_EventHandler handler;
 
-        public override void SetEvent(VRC_EventHandler.VrcEvent EventContents)
+        public override void SetEvent(CT_Event EventContents)
         {
             base.SetEvent(EventContents);
 
             if (!EventContents.ParameterBool)
             {
-                handler = EventContents.ParameterObject.GetComponent<VRC_EventHandler>();
+                handler = EventContents.ParameterObject0.GetComponent<VRC_EventHandler>();
             }
         }
 
@@ -44,7 +44,7 @@ namespace VRC_ChurroTweaks
         {
             if (EventContents.ParameterBool)
             {
-                handler = EventContents.ParameterObject.GetComponent<VRC_EventHandler>();
+                handler = EventContents.ParameterObject0.GetComponent<VRC_EventHandler>();
             }
 
             handler.TriggerEvent(EventContents.ParameterString, EventContents.ParameterFloat == 0 ? VRC_EventHandler.VrcBroadcastType.Always

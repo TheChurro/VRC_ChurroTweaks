@@ -26,7 +26,7 @@ namespace VRC_ChurroTweaks
          * the VRC_CT_CustomEvent the passed in VrcEvent through SetEvent();
          * </summary>
          **/
-	    public abstract VRC_CT_CustomEvent Create(VRC_EventHandler.VrcEvent e);
+	    public abstract VRC_CT_CustomEvent Create(CT_Event e);
 
         /**
          * <summary>
@@ -57,7 +57,7 @@ namespace VRC_ChurroTweaks
      **/
 	public abstract class VRC_CT_CustomEvent
 	{
-	    public VRC_EventHandler.VrcEvent EventContents;
+	    public CT_Event EventContents;
 		public string EventName;
 
         private GameObject EventHandlerObject;
@@ -74,12 +74,12 @@ namespace VRC_ChurroTweaks
 
 	    public abstract void TriggerEvent();
 
-	    public VRC_EventHandler.VrcEvent GetEvent()
+	    public CT_Event GetEvent()
 	    {
 			return EventContents;
 		}
 		
-		public virtual void SetEvent(VRC_EventHandler.VrcEvent EventContents)
+		public virtual void SetEvent(CT_Event EventContents)
 		{
 			this.EventContents = EventContents;
             this.EventContents.ParameterBool = VRC_EventHandler.BooleanOp(EventContents.ParameterBoolOp, false);

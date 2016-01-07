@@ -16,7 +16,7 @@ namespace VRC_ChurroTweaks
      **/
     public class VRC_CT_ScoreboardEventSpawn : VRC_CT_CustomEventSpawn
 	{
-	    public override VRC_CT_CustomEvent Create(VRC_EventHandler.VrcEvent e)
+	    public override VRC_CT_CustomEvent Create(CT_Event e)
 	    {
 	        VRC_CT_ScoreboardEvent Event = new VRC_CT_ScoreboardEvent();
 	        Event.SetEvent(e);
@@ -33,12 +33,12 @@ namespace VRC_ChurroTweaks
 	{
         private VRC_CT_ScoreboardManager manager;
 
-        public override void SetEvent(VRC_EventHandler.VrcEvent EventContents)
+        public override void SetEvent(CT_Event EventContents)
         {
             base.SetEvent(EventContents);
-            if (EventContents.ParameterObject != null)
+            if (EventContents.ParameterObject0 != null)
             {
-                manager = EventContents.ParameterObject.GetComponent<VRC_CT_ScoreboardManager>();
+                manager = EventContents.ParameterObject0.GetComponent<VRC_CT_ScoreboardManager>();
             }
         }
 

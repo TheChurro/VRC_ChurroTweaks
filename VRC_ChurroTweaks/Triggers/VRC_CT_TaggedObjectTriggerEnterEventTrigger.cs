@@ -61,7 +61,7 @@ namespace VRC_ChurroTweaks
 					{
 						if (e.EventContents.Name == EnterEventTrigger && EventTypesToUpdate.Contains(e.EventName))
 						{
-							e.EventContents.ParameterObject = col.gameObject;
+							e.EventContents.ParameterObject0 = col.gameObject;
 						}
 					}
 				}
@@ -81,7 +81,7 @@ namespace VRC_ChurroTweaks
 					{
 						if (e.EventContents.Name == EnterEventTrigger && EventTypesToUpdate.Contains(e.EventName))
 						{
-							e.EventContents.ParameterObject = col.gameObject;
+							e.EventContents.ParameterObject0 = col.gameObject;
 						}
 					}
 				}

@@ -18,7 +18,9 @@ namespace VRC_ChurroTweaks
      **/
 	public class VRC_CT_EventHandler : MonoBehaviour
 	{
-	    public List<VRC_EventHandler.VrcEvent> EventInstructions;
+
+        [NonSerialized]
+	    public CT_Event[] EventInstructions;
 
 	    public HashSet<VRC_CT_CustomEventSpawn> CustomEvents;
 
@@ -51,60 +53,57 @@ namespace VRC_ChurroTweaks
 	    private void Compile()
 	    {
 	        Handler.Events.Clear();
-	        foreach (VRC_EventHandler.VrcEvent e in EventInstructions)
-	        {
-	            if (e.ParameterString.StartsWith("-"))
-	            {
-	                foreach (VRC_CT_CustomEventSpawn ep in CustomEvents)
-	                {
-	                    if (e.ParameterString.StartsWith("-" + ep.EventTypeName + ":"))
-	                    {
-	                        VRC_EventHandler.VrcEvent customEvent = CloneEvent(e);
-	                        customEvent.ParameterString = customEvent.ParameterString.Substring(2 + ep.EventTypeName.Length);
-							VRC_CT_CustomEvent compiledEvent = ep.Create(customEvent);
-							compiledEvent.EventName = ep.EventTypeName;
+            EventInstructions = this.GetComponents<CT_Event>();
+            foreach (CT_Event e in EventInstructions)
+            {
+                if (!e.EventTypeName.Equals(""))
+                {
+                    foreach (VRC_CT_CustomEventSpawn ep in CustomEvents)
+                    {
+                        if (e.EventTypeName.Equals(ep.EventTypeName))
+                        {
+                            VRC_CT_CustomEvent compiledEvent = ep.Create(e);
+                            compiledEvent.EventName = ep.EventTypeName;
 
                             if (ep.RequiresEventHandlerObject())
                             {
                                 compiledEvent.SetEventHandlerGameObject(this.gameObject);
                             }
-							CompiledEvents.Add(compiledEvent);
+                            CompiledEvents.Add(compiledEvent);
 
-	                        if (!CustomEventNames.Contains(e.Name))
-	                        {
-	                            VRC_EventHandler.VrcEvent customEventTrigger = new VRC_EventHandler.VrcEvent();
-	                            customEventTrigger.Name = e.Name;
-	                            customEventTrigger.EventType = VRC_EventHandler.VrcEventType.SendMessage;
-	                            customEventTrigger.ParameterString = "TriggerEvent" + CustomEventNames.Count;
-	                            customEventTrigger.ParameterObject = this.gameObject;
+                            if (!CustomEventNames.Contains(e.Name))
+                            {
+                                VRC_EventHandler.VrcEvent customEventTrigger = new VRC_EventHandler.VrcEvent();
+                                customEventTrigger.Name = e.Name;
+                                customEventTrigger.EventType = VRC_EventHandler.VrcEventType.SendMessage;
+                                customEventTrigger.ParameterString = "TriggerEvent" + CustomEventNames.Count;
+                                customEventTrigger.ParameterObject = this.gameObject;
 
-	                            Handler.Events.Add(customEventTrigger);
-	                            CustomEventNames.Add(e.Name);
-	                        }
-	                    }
-	                }
-	            }
+                                Handler.Events.Add(customEventTrigger);
+                                CustomEventNames.Add(e.Name);
+                            }
+                        }
+                    }
+                }
 	            else
 	            {
-	                Handler.Events.Add(CloneEvent(e));
+	                Handler.Events.Add(GetVrcEvent(e));
 	            }
 	        }
 	    }
 
-	    public VRC_EventHandler.VrcEvent CloneEvent(VRC_EventHandler.VrcEvent e)
-	    {
-	        VRC_EventHandler.VrcEvent returnEvent = new VRC_EventHandler.VrcEvent();
-
-	        returnEvent.Name = e.Name;
-	        returnEvent.EventType = e.EventType;
-	        returnEvent.ParameterBool = e.ParameterBool;
-	        returnEvent.ParameterBoolOp = e.ParameterBoolOp;
-	        returnEvent.ParameterFloat = e.ParameterFloat;
-	        returnEvent.ParameterObject = e.ParameterObject;
-	        returnEvent.ParameterString = e.ParameterString;
-
-	        return returnEvent;
-	    }
+        public VRC_EventHandler.VrcEvent GetVrcEvent(CT_Event evt)
+        {
+            VRC_EventHandler.VrcEvent e = new VRC_EventHandler.VrcEvent();
+            e.Name = evt.Name;
+            e.EventType = evt.RegularEventType;
+            e.ParameterBool = evt.ParameterBool;
+            e.ParameterBoolOp = evt.ParameterBoolOp;
+            e.ParameterFloat = evt.ParameterFloat;
+            e.ParameterObject = evt.getGameObjectPerferred0();
+            e.ParameterString = evt.ParameterString;
+            return e;
+        }
 
 	    public void TriggerEvent0()
 	    {

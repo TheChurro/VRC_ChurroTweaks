@@ -4,6 +4,42 @@
         <name>VRC_ChurroTweaks</name>
     </assembly>
     <members>
+        <member name="T:VRC_ChurroTweaks.CT_Event">
+             <summary>
+             An Event class that includes more information for custom events than can be included in VrcEvents
+             </summary>
+            
+        </member>
+        <member name="F:VRC_ChurroTweaks.CT_Event.EventTypeName">
+            
+             <summary>
+             The name of the Custom_Event that this event uses
+             </summary>
+            
+            
+        </member>
+        <member name="F:VRC_ChurroTweaks.CT_Event.ParameterObject2">
+             <summary>
+             A GameObject parameter that doesn't have to be the child of the game object of the handler
+             </summary>
+            
+        </member>
+        <member name="M:VRC_ChurroTweaks.CT_Event.getGameObjectPerferred2">
+             <summary>
+             Returns the GameObject that isn't the child of the object with the event handler GameObject
+             if it exists. If it doesn't it returns the GameObject that is child to the EventHandler
+             GameObject
+             </summary> 
+            
+        </member>
+        <member name="M:VRC_ChurroTweaks.CT_Event.getGameObjectPerferred1">
+             <summary>
+             Returns the GameObject that is the child of the object with the event handler GameObject
+             if it exists. If it doesn't it returns the GameObject that isn't child to the EventHandler
+             GameObject
+             </summary> 
+            
+        </member>
         <member name="T:VRC_ChurroTweaks.VRC_CT_CustomEventSpawn">
              <summary>
              An abstract class that can be placed on GameObjects to allow CustomEvent usage.
@@ -17,7 +53,7 @@
              </summary>
             
         </member>
-        <member name="M:VRC_ChurroTweaks.VRC_CT_CustomEventSpawn.Create(VRCSDK2.VRC_EventHandler.VrcEvent)">
+        <member name="M:VRC_ChurroTweaks.VRC_CT_CustomEventSpawn.Create(VRC_ChurroTweaks.CT_Event)">
              <summary>
              An abstract method that returns the specific VRC_CT_CustomEvent for the spawn class. For instance
              a VRC_CT_ScoreboardEventSpawn returns a VRC_CT_ScoreboardEvent. Note: overriding classes need to give
@@ -85,6 +121,18 @@
         <member name="F:VRC_ChurroTweaks.VRC_CT_ExternalTextView.TextArea">
              <summary>
              The display for the text
+             </summary>
+            
+        </member>
+        <member name="F:VRC_ChurroTweaks.VRC_CT_ExternalTextView.Scroll">
+             <summary>
+             Should the Text displayed be scrolling or in distinct parts
+             </summary>
+            
+        </member>
+        <member name="F:VRC_ChurroTweaks.VRC_CT_ExternalTextView.Wrap">
+             <summary>
+             Should the Text wrap when the end or beginning hits
              </summary>
             
         </member>

@@ -47,20 +47,22 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="VRC_CT_CustomEvent.cs" />
-    <Compile Include="VRC_CT_EventHandler.cs" />
+    <Compile Include="EventStructure\CT_Event.cs" />
+    <Compile Include="EventStructure\VRC_CT_CustomEvent.cs" />
+    <Compile Include="EventStructure\VRC_CT_EventHandler.cs" />
+    <Compile Include="ObjectManagement\VRC_CT_DestroyObjectEvent.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="VRC_CT_ExternalTextView.cs" />
-    <Compile Include="VRC_CT_ObjectTeleportEvent.cs" />
-    <Compile Include="VRC_CT_OnWorldLoadTrigger.cs" />
-    <Compile Include="VRC_CT_RemoteEventTriggerEvent.cs" />
-    <Compile Include="VRC_CT_Scoreboard.cs" />
-    <Compile Include="VRC_CT_ScoreboardComparatorEvent.cs" />
-    <Compile Include="VRC_CT_ScoreboardEvent.cs" />
-    <Compile Include="VRC_CT_ScoreboardManager.cs" />
-    <Compile Include="VRC_CT_TaggedObjectTriggerEnterEventTrigger.cs" />
-    <Compile Include="VRC_CT_ObjectTags.cs" />
-    <Compile Include="VRC_CT_CustomEventCollector.cs" />
+    <Compile Include="Utilities\VRC_CT_ExternalTextView.cs" />
+    <Compile Include="ObjectManagement\VRC_CT_ObjectTeleportEvent.cs" />
+    <Compile Include="Triggers\VRC_CT_OnWorldLoadTrigger.cs" />
+    <Compile Include="Triggers\VRC_CT_RemoteEventTriggerEvent.cs" />
+    <Compile Include="Scoreboard\VRC_CT_Scoreboard.cs" />
+    <Compile Include="Scoreboard\VRC_CT_ScoreboardComparatorEvent.cs" />
+    <Compile Include="Scoreboard\VRC_CT_ScoreboardEvent.cs" />
+    <Compile Include="Scoreboard\VRC_CT_ScoreboardManager.cs" />
+    <Compile Include="Triggers\VRC_CT_TaggedObjectTriggerEnterEventTrigger.cs" />
+    <Compile Include="Information\VRC_CT_ObjectTags.cs" />
+    <Compile Include="EventStructure\VRC_CT_CustomEventCollector.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

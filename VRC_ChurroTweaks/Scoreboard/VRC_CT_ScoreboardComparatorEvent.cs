@@ -56,7 +56,7 @@ namespace VRC_ChurroTweaks
             return true;
         }
 
-        public override VRC_CT_CustomEvent Create(VRC_EventHandler.VrcEvent e)
+        public override VRC_CT_CustomEvent Create(CT_Event e)
         {
             VRC_CT_ScoreboardComparatorEvent compareEvent = new VRC_CT_ScoreboardComparatorEvent();
             compareEvent.SetEvent(e);
@@ -86,17 +86,17 @@ namespace VRC_ChurroTweaks
         private VRC_CT_ScoreboardManager scoreboard;
         private VRC_EventHandler handler;
 
-        public override void SetEvent(VRC_EventHandler.VrcEvent EventContents)
+        public override void SetEvent(CT_Event EventContents)
         {
             base.SetEvent(EventContents);
             string[] stringSplit = EventContents.ParameterString.Split(new char[]{' '}, StringSplitOptions.RemoveEmptyEntries);
 
             VRC_CT_EventHandler.print("StringSplit.Length = " + stringSplit.Length);
 
-            if (EventContents.ParameterObject != null)
+            if (EventContents.ParameterObject0 != null)
             {
-                scoreboard = EventContents.ParameterObject.GetComponent<VRC_CT_ScoreboardManager>();
-                handler = EventContents.ParameterObject.GetComponent<VRC_EventHandler>();
+                scoreboard = EventContents.ParameterObject0.GetComponent<VRC_CT_ScoreboardManager>();
+                handler = EventContents.ParameterObject0.GetComponent<VRC_EventHandler>();
             }
 
             if (stringSplit.Length < 5 || (stringSplit.Length == 4 && !(stringSplit[3].Equals(":") || stringSplit[3].Equals("?"))))
