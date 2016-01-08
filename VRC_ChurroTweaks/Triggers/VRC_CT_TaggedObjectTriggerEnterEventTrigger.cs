@@ -36,10 +36,17 @@ namespace VRC_ChurroTweaks
          **/
 		public List<string> EventTypesToUpdate;
 
+        /**
+         * <summary>
+         *  
+         * </summary>
+         **/
+        public int ParameterObjectToChange = 0;
+
 	    private VRC_EventHandler Handler;
 		private VRC_CT_EventHandler ChurroHandler;
 
-	    void Start()
+        void Start()
 	    {
 	        Handler = gameObject.GetComponent<VRC_EventHandler>();
 

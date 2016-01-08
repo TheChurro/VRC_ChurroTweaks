@@ -37,7 +37,6 @@ namespace VRC_ChurroTweaks
             this.mode = mode;
         }
 
-
 	    public override void TriggerEvent()
 	    {
             if (mode == VRC_CT_ObjectTeleportEventSpawn.TeleportMode.TELEPORT_TO_PARENT)
